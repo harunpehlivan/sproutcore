@@ -1052,7 +1052,8 @@ SC.ScrollView = SC.View.extend({
       return;
     }
 
-    var contentView = this.get('contentView');
+    var contentView = this.get('contentView'),
+      contentLayout = contentView.get('layout');
 
     // the content view's frame in the the coordinate of the content view's parent view
     var contentViewFrame = contentView.get('frame');
@@ -1251,8 +1252,8 @@ SC.ScrollView = SC.View.extend({
 
     // For now, we disable aligning for flexible layouts; our only tools for aligning
     // conflict with them.
-    if (contentView.get('isFixedWidth')) adjustHash.left = leftOffset;
-    if (contentView.get('isFixedHeight')) adjustHash.top = topOffset;
+    if (contentView.get('isFixedWidth')) adjustHash.left = leftOffset + (contentLayout.left || 0);
+    if (contentView.get('isFixedHeight')) adjustHash.top = topOffset + (contentLayout.top || 0);
 
     contentView.adjust(adjustHash);
 
